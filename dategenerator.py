@@ -20,14 +20,14 @@ for i in range(0,51):
 
 yearago = datetime.date.today() - relativedelta(years=1)
 yearago_weekday = yearago.weekday() + 1 % 7
-last_sunday_yearago = yearago - relativedelta(days=yearago_weekday)
+next_sunday_yearago = yearago - relativedelta(days=yearago_weekday-7)
 
-datelist = [str(last_sunday_yearago + relativedelta(days=number)) for number in bitlist]
+datelist = [str(next_sunday_yearago + relativedelta(days=number)) for number in bitlist]
 
 subprocess.run(["git", "checkout", "--orphan", "fake-commits"])
 
 for date in datelist:
-    for _ in range(0,15):
+    for _ in range(0,10):
         subprocess.run(["git", "commit", "--allow-empty", "--date", date, "-m", date])
 
 
