@@ -27,12 +27,12 @@ datelist = [str(last_sunday_yearago + relativedelta(days=number)) for number in 
 subprocess.run(["git", "checkout", "--orphan", "fake-commits"])
 
 for date in datelist:
-    subprocess.run(["git", "commit", "--allow-empty", "--date", date, "-m", date])
-    subprocess.run(["git", "commit", "--allow-empty", "--date", date, "-m", date])
-    subprocess.run(["git", "commit", "--allow-empty", "--date", date, "-m", date])
-    subprocess.run(["git", "commit", "--allow-empty", "--date", date, "-m", date])
+    for _ in range(0,15):
+        subprocess.run(["git", "commit", "--allow-empty", "--date", date, "-m", date])
 
 
 subprocess.run(["git", "checkout", "main"])
-subprocess.run(["git", "merge", "--allow-unrelated-histories", "fake-commits"])
+subprocess.run(["git", "merge", "--allow-unrelated-histories", "fake-commits", "-m", "Get fake commits in there"])
+subprocess.run(["git", "branch", "-D", "fake-commits"])
+
 
